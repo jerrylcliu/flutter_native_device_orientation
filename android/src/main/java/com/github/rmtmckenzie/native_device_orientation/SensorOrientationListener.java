@@ -90,7 +90,7 @@ public class SensorOrientationListener implements IOrientationListener {
     int defaultDeviceOrientation = getDeviceDefaultOrientation();
     if (defaultDeviceOrientation == Configuration.ORIENTATION_LANDSCAPE) {
       // add offset to landscape
-      angle += 90;
+//      angle += 90;
     }
 
     angle = angle % 360;
