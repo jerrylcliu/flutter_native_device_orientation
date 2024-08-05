@@ -56,7 +56,7 @@ public class SensorOrientationListener implements IOrientationListener {
     orientationEventListener = new OrientationEventListener(activity, rate.nativeValue) {
       @Override
       public void onOrientationChanged(int angle) {
-        Log.e("meaning","onOrientationChanged angle is " + angle);
+//        Log.e("meaning","onOrientationChanged angle is " + angle);
 //        NativeOrientation newOrientation = calculateSensorOrientation(angle);
 //        Log.e("meaning","onOrientationChanged newOrientation is " + newOrientation.name() + ",lastOrientation is " + (lastOrientation == null ? "null" : lastOrientation.name()));
 
