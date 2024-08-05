@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -41,7 +42,7 @@ public class SensorOrientationListener implements IOrientationListener {
   }
 
   public SensorOrientationListener(Activity activity, OrientationCallback callback) {
-    this(activity, callback, Rate.ui);
+    this(activity, callback, Rate.normal);
   }
 
 
@@ -55,7 +56,23 @@ public class SensorOrientationListener implements IOrientationListener {
     orientationEventListener = new OrientationEventListener(activity, rate.nativeValue) {
       @Override
       public void onOrientationChanged(int angle) {
-        NativeOrientation newOrientation = calculateSensorOrientation(angle);
+        Log.e("meaning","onOrientationChanged angle is " + angle);
+//        NativeOrientation newOrientation = calculateSensorOrientation(angle);
+//        Log.e("meaning","onOrientationChanged newOrientation is " + newOrientation.name() + ",lastOrientation is " + (lastOrientation == null ? "null" : lastOrientation.name()));
+
+        // 之前的横竖屏判断太灵敏了，从RN的横竖屏判断里copy了一段逻辑来
+        NativeOrientation newOrientation = lastOrientation;
+        if (angle == -1) {
+          newOrientation = NativeOrientation.Unknown;
+        } else if (angle > 355 || angle < 5) {
+          newOrientation = NativeOrientation.PortraitUp;
+        } else if (angle > 85 && angle < 95) {
+          newOrientation = NativeOrientation.LandscapeRight;
+        } else if (angle > 175 && angle < 185) {
+          newOrientation = NativeOrientation.PortraitDown;
+        } else if (angle > 265 && angle < 275) {
+          newOrientation = NativeOrientation.LandscapeLeft;
+        }
 
         if (!newOrientation.equals(lastOrientation)) {
           lastOrientation = newOrientation;
