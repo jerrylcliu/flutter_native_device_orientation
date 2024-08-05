@@ -56,9 +56,7 @@ public class SensorOrientationListener implements IOrientationListener {
     orientationEventListener = new OrientationEventListener(activity, rate.nativeValue) {
       @Override
       public void onOrientationChanged(int angle) {
-//        Log.e("meaning","onOrientationChanged angle is " + angle);
 //        NativeOrientation newOrientation = calculateSensorOrientation(angle);
-//        Log.e("meaning","onOrientationChanged newOrientation is " + newOrientation.name() + ",lastOrientation is " + (lastOrientation == null ? "null" : lastOrientation.name()));
 
         // 之前的横竖屏判断太灵敏了，从RN的横竖屏判断里copy了一段逻辑来
         NativeOrientation newOrientation = lastOrientation;
