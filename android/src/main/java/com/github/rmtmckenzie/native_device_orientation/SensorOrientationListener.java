@@ -59,7 +59,7 @@ public class SensorOrientationListener implements IOrientationListener {
 //        NativeOrientation newOrientation = calculateSensorOrientation(angle);
 
         // 之前的横竖屏判断太灵敏了，从RN的横竖屏判断里copy了一段逻辑来
-        NativeOrientation newOrientation = lastOrientation;
+        NativeOrientation newOrientation = null;
         if (angle == -1) {
           newOrientation = NativeOrientation.Unknown;
         } else if (angle > 355 || angle < 5) {
@@ -72,7 +72,7 @@ public class SensorOrientationListener implements IOrientationListener {
           newOrientation = NativeOrientation.LandscapeLeft;
         }
 
-        if (!newOrientation.equals(lastOrientation)) {
+        if (newOrientation != null && !newOrientation.equals(lastOrientation)) {
           lastOrientation = newOrientation;
           callback.receive(newOrientation);
         }
